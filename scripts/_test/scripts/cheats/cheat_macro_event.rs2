@@ -11,6 +11,37 @@ if ($event < 1 | $event > add(~macro_event_general_count,1)) {
 }
 ~macro_event_general_spawn($event);
 
+[debugproc,specific_macro_event](string $event)
+if_close;
+if (p_finduid(uid) = false) {
+    @please_finish;
+    return;
+}
+if (~macro_event_allowed = false) {
+    mes("A macro event cannot spawn here right now.");
+    return;
+}
+if (compare($event, "zombie") = 0) {
+    ~macro_event_zombie_spawn;
+} else if (compare($event, "shade") = 0) {
+    ~macro_event_shade_spawn;
+} else if (compare($event, "dryad") = 0) {
+    ~macro_event_dryad_spawn;
+} else if (compare($event, "lostaxe") = 0 | compare($event, "lost_axe") = 0) {
+    ~macro_event_lost_axe_spawn;
+} else if (compare($event, "lostpickaxe") = 0 | compare($event, "lost_pickaxe") = 0) {
+    ~macro_event_lost_pickaxe_spawn;
+} else if (compare($event, "rockgolem") = 0 | compare($event, "rock_golem") = 0) {
+    ~macro_event_rock_golem_spawn;
+} else if (compare($event, "rivertroll") = 0 | compare($event, "river_troll") = 0) {
+    ~macro_event_river_troll_spawn;
+} else if (compare($event, "watchman") = 0) {
+    ~macro_event_watchman_spawn;
+} else {
+    mes("Choose a supported specific macro event.");
+    @debugusage("::macroevent zombie|shade|dryad|lostaxe|lostpickaxe|rockgolem|rivertroll|watchman", "::macroevent zombie", "");
+}
+
 [debugproc,random_event]
 if_close;
 if (p_finduid(uid) = false) {
